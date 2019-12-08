@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>index page</title>
+  
+  <!-- jquery -->
+  <script
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			  crossorigin="anonymous"></script>
+		
+</head>
+<body>
+
+  <H2>test user token</H2>
+  <form>
+    token<input type="text" id="token"><br>
+  
+    <button onclick="testToken()">submit</button>
+  
+  
+  </form>
+  
+  <script>
+  
+    function testToken(){
+      
+      //需加上這句以避免form進行自動提交
+      event.preventDefault();
+
+      token=$("#token").val();
+      // token="eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3fQ.7etp5usTbQHNVtRjdn8toGxpurLHoujJAOi2NZGYyys";
+      
+      $.ajax({
+        beforeSend: function(request) {
+          request.setRequestHeader("Authorization", token);
+        },
+        
+        url: "/users",
+        type: "GET",
+        // contentType: 'application/json',
+        // dataType: "json",
+      //   data:JSON.stringify({
+      //     user:{
+      //       "email":$("#email").val(),
+      //       "password":$("#password").val(),
+      //     }
+      //  }),
+        success: function(data) {
+          console.log("success!!");
+          console.log(data);
+        },
+        
+        error: function(err) {
+          console.log("ERROR!!!");
+          console.log(err.status);
+          console.log(err);
+        }
+      });
+    }
+  
+  </script>
+
+
+
+
+
+</body>
+</html>

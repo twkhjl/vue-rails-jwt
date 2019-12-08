@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>index page</title>
+  
+  <!-- jquery -->
+  <script
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			  crossorigin="anonymous"></script>
+		
+</head>
+<body>
+
+  <H2>user register</H2>
+  <form>
+    name<input type="text" id="name"><br>
+    username<input type="text" id="username"><br>
+    email<input type="text" id="email"><br>
+    password<input type="password" id="password"><br>
+    password confirm<input type="password" id="password_confirmation"><br>
+  
+    <button onclick="userCreate()">submit</button>
+  
+  
+  </form>
+  
+  <script>
+  
+    function userCreate(){
+      
+      //需加上這句以避免form進行自動提交
+      event.preventDefault();
+
+      $.ajax({
+        
+        url: "/users",
+        type: "POST",
+        contentType: 'application/json',
+        dataType: "json",
+        data:JSON.stringify({
+          user:{
+            "name":$("#name").val(),
+            "username":$("#username").val(),
+            "email":$("#email").val(),
+            "password":$("#password").val(),
+            "password_confirmation":$("#password_confirmation").val(),
+          }
+       }),
+        success: function(data) {
+          console.log("success!!");
+          console.log(data);
+        },
+        
+        error: function(err) {
+          console.log("ERROR!!!");
+          console.log(err.status);
+          console.log(err);
+        }
+      });
+    }
+  
+  </script>
+
+
+
+
+
+</body>
+</html>

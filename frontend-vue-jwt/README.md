@@ -1,4 +1,4 @@
-# vue-hello-world
+# frontend-vue-jwt
 
 ## Project setup
 ```
